@@ -6,6 +6,8 @@ from twshare.stock.stock_twse_daily import stock_twse_daily
 from twshare.stock.stock_twse_index_daily import stock_twse_index_daily
 from twshare.stock.stock_check import stock_check
 from twshare.stock.csv_download import csv_download
+from twshare.stock.dividend_policy import dividend_policy
+from twshare.stock.tdcc_share_distribution import share_distribution
 
 __all__ = [
     "stock_twse_company_info",
@@ -15,5 +17,7 @@ __all__ = [
     "stock_twse_daily",
     "stock_twse_index_daily",
     "stock_check",
-    "csv_download"
+    "csv_download",
+    "dividend_policy",
+    "share_distribution"
 ]
