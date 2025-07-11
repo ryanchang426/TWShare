@@ -7,7 +7,7 @@ import pandas as pd
 import os
 import time
 
-def dividend_policy(stock_id: str, output_dir: str = r"D:\Mirror\TestingFolder") -> str:
+def dividend_policy(stock_id: str, output_dir: str = r"C:\股利政策資料") -> str:
     # 準備資料夾
     os.makedirs(output_dir, exist_ok=True)
 
@@ -41,7 +41,7 @@ def dividend_policy(stock_id: str, output_dir: str = r"D:\Mirror\TestingFolder")
         # 儲存為 CSV
         csv_path = os.path.join(output_dir, f"{stock_id}_DividendDetail.csv")
         df.to_csv(csv_path, index=False, encoding="utf-8-sig")
-        print(f"✅ {stock_id} 表格已儲存為 CSV：{csv_path}")
+        print(f" {stock_id} 表格已儲存為 CSV：{csv_path}")
         return csv_path
 
     except Exception as e:

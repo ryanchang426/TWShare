@@ -4,7 +4,7 @@ import os
 import json
 from IPython.display import display, HTML
 
-def stock_check1(df: pd.DataFrame, source_name: str, schema_dir: str = "./schemas") -> None:
+def stock_check(df: pd.DataFrame, source_name: str, schema_dir: str = "./schemas") -> None:
     os.makedirs(schema_dir, exist_ok=True)
     schema_path = os.path.join(schema_dir, f"schema_{source_name}.json")
 
