@@ -8,6 +8,7 @@ from twshare.stock.stock_check import stock_check
 from twshare.stock.csv_download import csv_download
 from twshare.stock.dividend_policy import dividend_policy
 from twshare.stock.tdcc_share_distribution import tdcc_share_distribution
+from twshare.stock.xbrl_report import xbrl
 
 __all__ = [
     "stock_twse_company_info",
@@ -19,5 +20,6 @@ __all__ = [
     "stock_check",
     "csv_download",
     "dividend_policy",
-    "tdcc_share_distribution"
+    "tdcc_share_distribution",
+    "xbrl"
 ]

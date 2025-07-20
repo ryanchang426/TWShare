@@ -1,50 +1,36 @@
+import os
+import time
+import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
-import pandas as pd
-import os
-import time
 
-def dividend_policy(stock_id: str, output_dir: str = r"C:\股利政策資料") -> str:
-    # 準備資料夾
-    os.makedirs(output_dir, exist_ok=True)
-
-    # 設定 Chrome 選項（無需下載設定）
+def dividend_policy(stock_id: str) -> pd.DataFrame:
+    # 設定 Chrome options
     chrome_options = Options()
-    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 
-    # 啟動 Chrome driver
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-    driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
-        'source': '''
-        Object.defineProperty(navigator, 'webdriver', {
-            get: () => undefined
-        });
-        '''
-    })
 
     try:
-        # 開啟 Goodinfo 頁面
-        url = f'https://goodinfo.tw/tw/StockDividendPolicy.asp?STOCK_ID={stock_id}'
+        url = f"https://goodinfo.tw/tw/StockDividendPolicy.asp?STOCK_ID={stock_id}"
         driver.get(url)
         time.sleep(3)
-
-        # 抓取表格 HTML
+        
+        # 取得股利政策表格 HTML
         div = driver.find_element(By.ID, "divDetail")
         html = div.get_attribute("outerHTML")
-
-        # 轉換成 DataFrame
+        
+        # 轉成 DataFrame
         df = pd.read_html(html)[0]
 
-        # 儲存為 CSV
-        csv_path = os.path.join(output_dir, f"{stock_id}_DividendDetail.csv")
-        df.to_csv(csv_path, index=False, encoding="utf-8-sig")
-        print(f" {stock_id} 表格已儲存為 CSV：{csv_path}")
-        return csv_path
+        return df
 
     except Exception as e:
-        print(f"❌ 發生錯誤：{e}")
+        print(f"發生錯誤: {e}")
+        return None
+
     finally:
         driver.quit()
